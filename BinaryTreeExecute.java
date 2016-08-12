@@ -18,6 +18,7 @@ public class BinaryTreeExecute {
 		int depth = lzwTree.depth();
 		double avg = lzwTree.averageDepth();
 		double var = lzwTree.variance();
+		int hash = lzwTree.hashCode();
 //		System.out.println(depth + " " + avg + " " + var);
 		
 		BinaryTreeHelper util2 = new BinaryTreeHelper();
@@ -34,6 +35,12 @@ public class BinaryTreeExecute {
 		int depth2 = lzwTree2.depth();
 		double avg2 = lzwTree2.averageDepth();
 		double var2 = lzwTree2.variance();
-		System.out.println(depth + " " + avg + " " + var +"\n" + depth2 + " " + avg2 + " " + var2);
+		int hash2 = lzwTree2.hashCode();
+		
+		boolean equals = false;
+		if (lzwTree.equals(lzwTree2) == true) {
+			equals = true;
+		}
+		System.out.println(depth + " " + avg + " " + var + " " + hash + "\n" + depth2 + " " + avg2 + " " + var2 + " " + hash2 + " " + equals);
 	}
 }

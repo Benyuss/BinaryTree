@@ -3,6 +3,31 @@ package binarytree;
 public abstract class AbstractBinaryTree<T, N> implements BinaryTree<T>{//String,Char LZWBinary miatt.
 	protected Node<N> root;
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((root == null) ? 0 : root.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		AbstractBinaryTree other = (AbstractBinaryTree) obj;
+		if (root == null) {
+			if (other.root != null)
+				return false;
+		} else if (!root.equals(other.root))
+			return false;
+		return true;
+	}
+
 	class DepthCalculator extends PreorderTraversal<N> {
 		int currentDepth = -1; // root node should not be counted
 		int maxDepth = 0;
@@ -75,4 +100,5 @@ public abstract class AbstractBinaryTree<T, N> implements BinaryTree<T>{//String
 		    variance = Math.sqrt(var.sum);
 		return variance;
 	}
+	
 }	
