@@ -1,4 +1,5 @@
 package binarytree;
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -39,20 +40,26 @@ class BinaryTreeHelper {
 	}
 
 	public String readFile(String filename) throws FileNotFoundException { //reads bits from file
-		Scanner in = new Scanner(new FileReader(filename));
+		BufferedReader inf = new BufferedReader(new FileReader(filename));
+//		Scanner in = new Scanner(new FileReader(filename));
 		StringBuilder sb = new StringBuilder();
 		int x = 0;
-
-		while (in.hasNext() == true) {
-			String next = in.next();
-			for (int i = 0; i < next.length(); i++) {
-				char nextChar = next.charAt(x);
-				if (nextChar == '0' || nextChar == '1') {
-					sb.append(nextChar);
-				}
-			}
+		try {
+			sb.append(inf.readLine());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		in.close();
+//		while (in.hasNext() == true) {
+//			String next = in.next();
+//			for (int i = 0; i < next.length(); i++) {
+//				char nextChar = next.charAt(x);
+//				if (nextChar == '0' || nextChar == '1') {
+//					sb.append(nextChar);
+//				}
+//			}
+//		}
+//		in.close();
 		return sb.toString();
 	}
 	

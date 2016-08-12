@@ -41,6 +41,7 @@ public class BinaryTreeExecute {
 		if (lzwTree.equals(lzwTree2) == true) {
 			equals = true;
 		}
-		System.out.println(depth + " " + avg + " " + var + " " + hash + "\n" + depth2 + " " + avg2 + " " + var2 + " " + hash2 + " " + equals);
+		
+		System.out.println(depth + " " + avg + " " + var + " " + hash+ "\n" + depth2 + " " + avg2 + " " + var2 + " " + hash2 + " " + equals);
 	}
 }

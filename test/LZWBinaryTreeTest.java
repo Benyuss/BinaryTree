@@ -44,10 +44,10 @@ public class LZWBinaryTreeTest {
 		Assert.assertEquals("Tree 3 depth is wrong", 2, tree4.depth());
 		
 		Boolean areEquals  = tree3.equals(tree4);
-		Assert.assertTrue("They are not equal." , Boolean.valueOf(areEquals));
+		Assert.assertTrue("They(3-4) are not equal." , Boolean.valueOf(areEquals));
 		
 		areEquals  = tree2.equals(tree4);
-		Assert.assertFalse("They are equal." , Boolean.valueOf(areEquals));
+		Assert.assertFalse("They(2-4) are equal." , Boolean.valueOf(areEquals));
 	}
 
 }
