@@ -3,13 +3,13 @@ package binarytree;
 public abstract class AbstractBinaryTree<T, N> implements BinaryTree<T>{//String,Char LZWBinary miatt.
 	protected Node<N> root;
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((root == null) ? 0 : root.hashCode());
-		return result;
-	}
+//	@Override
+//	public int hashCode() {
+//		final int prime = 31;
+//		int result = 1;
+//		result = prime * result + ((root == null) ? 0 : root.hashCode());
+//		return result;
+//	}
 
 	@Override
 	public boolean equals(Object obj) {
@@ -52,11 +52,11 @@ public abstract class AbstractBinaryTree<T, N> implements BinaryTree<T>{//String
 	}
 	
 	class AverageDepthCalculator extends DepthCalculator {
-		int count = 0;
-		int sum = 0;
-		double avg = 0;
+		double count = 0;
+		double sum = 0;
 		@Override
 		protected void processNode(Node<N> current) {
+			super.processNode(current);
 			if (current.getLeftChild() == null && current.getRightChild() == null) {
 				count++;
 				sum += currentDepth;
@@ -68,21 +68,26 @@ public abstract class AbstractBinaryTree<T, N> implements BinaryTree<T>{//String
 	public double averageDepth() {
 		AverageDepthCalculator adc = new AverageDepthCalculator();
 		adc.traverseTree(root);
-		adc.avg = (double)adc.sum / (double)adc.count;
-		return adc.avg;
+		return adc.sum / adc.count;
 	}
 	
 	
-	class VarianceCalculator extends AverageDepthCalculator {
-		int sum = 0;
-		int supersum = super.sum;
+	class VarianceCalculator extends DepthCalculator {
+		double sumSqr = 0;
+		double count = 0;
+		double avg;
 		
+		public VarianceCalculator(double avg) {
+			this.avg = avg;
+		}
+
 		@Override
 		protected void processNode(Node<N> current) {
+			super.processNode(current);
 			if (current != null) {
 			      if (current.getRightChild() == null && current.getLeftChild() == null) {
-			    	  super.sum++;
-			    	  sum += ((maxDepth - avg) * (maxDepth - avg));
+			    	  count++;
+			    	  sumSqr += ((currentDepth - avg) * (currentDepth - avg));
 			      }
 			}
 		}
@@ -91,13 +96,14 @@ public abstract class AbstractBinaryTree<T, N> implements BinaryTree<T>{//String
 	
 	@Override
 	public double variance() {
-		VarianceCalculator var = new VarianceCalculator();
-		double variance;
+		double avg = averageDepth();
+		VarianceCalculator var = new VarianceCalculator(avg);
 		var.traverseTree(root);
-		if (var.supersum - 1 > 0)
-		    variance = Math.sqrt(var.sum / (var.supersum - 1));
+		double variance;
+		if (var.count > 1)
+		    variance = Math.sqrt(var.sumSqr / (var.count - 1));
 		  else
-		    variance = Math.sqrt(var.sum);
+		    variance = Math.sqrt(var.sumSqr);
 		return variance;
 	}
 	

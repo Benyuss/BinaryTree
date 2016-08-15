@@ -1,6 +1,8 @@
 package binarytree;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.HashSet;
 
 public class BinaryTreeExecute {
 	public static void main(String[] args) {
@@ -41,7 +43,15 @@ public class BinaryTreeExecute {
 		if (lzwTree.equals(lzwTree2) == true) {
 			equals = true;
 		}
-		
+	
+		HashSet hm = new HashSet();
+		hm.add(lzwTree);
+		int size = hm.size();
+		System.out.println(size);
+		hm.add(lzwTree2);
+		size = hm.size();
+		System.out.println(size);
+		System.out.println("\n");
 		System.out.println(depth + " " + avg + " " + var + " " + hash+ "\n" + depth2 + " " + avg2 + " " + var2 + " " + hash2 + " " + equals);
 	}
 }
