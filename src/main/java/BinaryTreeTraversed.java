@@ -1,6 +1,3 @@
-package binarytree;
-
-
 class BinaryTreeTraversed<T> implements Traversal<T>{
 
 	@Override

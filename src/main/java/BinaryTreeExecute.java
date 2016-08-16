@@ -1,5 +1,3 @@
-package binarytree;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashSet;
@@ -79,7 +77,6 @@ public class BinaryTreeExecute implements initLogger{
 		hm.add(lzwTree2);
 		size = hm.size();
 		logger.log(Level.INFO, "Size is :: " + size + " :: .");
-		System.out.println(depth + " " + avg + " " + var + " " + hash+ "\n" + depth2 + " " + avg2 + " " + var2 + " " + hash2 + " " + equals);
 		logger.log(Level.DEBUG, depth + " " + avg + " " + var + " " + hash+ "\n" + depth2 + " " + avg2 + " " + var2 + " " + hash2 + " " + equals);
 	}
 }
