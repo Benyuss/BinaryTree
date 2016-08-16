@@ -1,6 +1,13 @@
 package binarytree;
 
-public abstract class AbstractBinaryTree<T, N> implements BinaryTree<T>{//String,Char LZWBinary miatt.
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.core.Logger;
+import org.omg.PortableServer.POAPackage.AdapterAlreadyExists;
+
+public abstract class AbstractBinaryTree<T, N> implements BinaryTree<T>, initLogger{//String,Char LZWBinary miatt.
 	protected Node<N> root;
 
 //	@Override
@@ -11,6 +18,25 @@ public abstract class AbstractBinaryTree<T, N> implements BinaryTree<T>{//String
 //		return result;
 //	}
 
+private static Logger logger = null;
+	
+	
+	static {
+		
+		try {
+			initLogger.initialize();
+		} catch (FileNotFoundException e) {
+			logger.log(Level.ERROR, "Can't initialize main's constructor due to loggers configuration file hasn't been found.");
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.log(Level.ERROR, "Can't initialize main's constructor due to loggers configuration file hasn't been found.");
+			e.printStackTrace();
+		}
+		
+		logger = initLogger.logger[0];
+	}
+	
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -48,6 +74,7 @@ public abstract class AbstractBinaryTree<T, N> implements BinaryTree<T>{//String
 	public int depth() {
 		DepthCalculator dc = new DepthCalculator();
 		dc.traverseTree(root);
+		logger.log(Level.DEBUG, "Tree is " + dc.maxDepth + " deep.");
 		return dc.maxDepth;
 	}
 	
@@ -68,7 +95,9 @@ public abstract class AbstractBinaryTree<T, N> implements BinaryTree<T>{//String
 	public double averageDepth() {
 		AverageDepthCalculator adc = new AverageDepthCalculator();
 		adc.traverseTree(root);
-		return adc.sum / adc.count;
+		double temp = adc.sum / adc.count;
+		logger.log(Level.DEBUG, "Avarage depth is " + temp);
+		return temp;
 	}
 	
 	
@@ -104,7 +133,7 @@ public abstract class AbstractBinaryTree<T, N> implements BinaryTree<T>{//String
 		    variance = Math.sqrt(var.sumSqr / (var.count - 1));
 		  else
 		    variance = Math.sqrt(var.sumSqr);
+		logger.log(Level.DEBUG, "Variance is " + variance);
 		return variance;
 	}
-	
 }	

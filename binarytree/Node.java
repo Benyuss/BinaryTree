@@ -1,6 +1,6 @@
 package binarytree;
 
-public class Node<T> {//Char
+public class Node<T> implements initLogger{//Char
 	private final T value;
 	private Node<T> leftChild;
 	private Node<T> rightChild;

@@ -1,6 +1,6 @@
 package binarytree;
 
-public interface BinaryTree<T> {//String
+public interface BinaryTree<T>{//String
 	
 	//void travWay(String bits); //select the traversal way
 	void add(T value); 

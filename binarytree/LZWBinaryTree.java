@@ -1,6 +1,6 @@
 package binarytree;
 
-public class LZWBinaryTree extends AbstractBinaryTree<String, Character> {
+public class LZWBinaryTree extends AbstractBinaryTree<String, Character> implements initLogger{
 
 	public LZWBinaryTree() {
 		root = new Node<Character>('/');
