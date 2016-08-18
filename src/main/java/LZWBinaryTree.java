@@ -1,4 +1,4 @@
-public class LZWBinaryTree extends AbstractBinaryTree<String, Character> implements initLogger{
+public class LZWBinaryTree extends AbstractBinaryTree<String, Character> implements InitLogger{
 
 	public LZWBinaryTree() {
 		root = new Node<Character>('/');
@@ -7,9 +7,9 @@ public class LZWBinaryTree extends AbstractBinaryTree<String, Character> impleme
 	@Override
 	public void add(String value) {
 		Node<Character> currentNode = root;
+		Node<Character> nextNode = root;
 		for (int i = 0; i < value.length(); i++) {
 			int c = value.charAt(i);
-				Node<Character> nextNode;
 				if ((c) == '1') {
 					nextNode = currentNode.getRightChild();
 					if (nextNode == null) {
@@ -17,7 +17,7 @@ public class LZWBinaryTree extends AbstractBinaryTree<String, Character> impleme
 						currentNode.setRightChild(newNode);
 						nextNode = root;
 					}
-				} else {
+				} else if ((c) == '0'){
 					nextNode = currentNode.getLeftChild();
 					if (nextNode == null) {
 						Node<Character> newNode = new Node<Character>('0');

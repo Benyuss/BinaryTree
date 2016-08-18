@@ -1,11 +1,10 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.HashSet;
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.core.Logger;
 
-public class BinaryTreeExecute implements initLogger{
+public class BinaryTreeExecute implements InitLogger{
 	
 	private static Logger logger = null;
 	
@@ -13,7 +12,7 @@ public class BinaryTreeExecute implements initLogger{
 	static {
 		
 		try {
-			initLogger.initialize();
+			InitLogger.initialize();
 		} catch (FileNotFoundException e) {
 			logger.log(Level.ERROR, "Can't initialize main's constructor due to loggers configuration file hasn't been found.");
 			e.printStackTrace();
@@ -22,7 +21,7 @@ public class BinaryTreeExecute implements initLogger{
 			e.printStackTrace();
 		}
 		
-		logger = initLogger.logger[0];
+		logger = InitLogger.logger[0];
 	}
 	
 	public static void main(String[] args) throws FileNotFoundException, IOException  {
@@ -70,13 +69,7 @@ public class BinaryTreeExecute implements initLogger{
 			equals = true;
 		}
 	
-		HashSet hm = new HashSet();
-		hm.add(lzwTree);
-		int size = hm.size();
-		logger.log(Level.INFO, "Size is :: " + size + " :: .");
-		hm.add(lzwTree2);
-		size = hm.size();
-		logger.log(Level.INFO, "Size is :: " + size + " :: .");
 		logger.log(Level.DEBUG, depth + " " + avg + " " + var + " " + hash+ "\n" + depth2 + " " + avg2 + " " + var2 + " " + hash2 + " " + equals);
+				
 	}
 }

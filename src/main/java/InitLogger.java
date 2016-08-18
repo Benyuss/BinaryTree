@@ -14,7 +14,7 @@ import org.apache.logging.log4j.core.config.LoggerConfig;
 import org.apache.logging.log4j.core.config.xml.XmlConfigurationFactory;
 import org.apache.logging.log4j.core.layout.PatternLayout;
 
-interface initLogger {
+interface InitLogger {
 	
 	final Logger logger[] = new Logger[1];
 	

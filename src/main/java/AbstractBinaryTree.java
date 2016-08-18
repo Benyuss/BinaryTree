@@ -4,7 +4,7 @@ import java.io.IOException;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.core.Logger;
 
-public abstract class AbstractBinaryTree<T, N> implements BinaryTree<T>, initLogger{//String,Char LZWBinary miatt.
+public abstract class AbstractBinaryTree<T, N> implements BinaryTree<T>, InitLogger{//String,Char LZWBinary miatt.
 	protected Node<N> root;
 
 //	@Override
@@ -21,7 +21,7 @@ private static Logger logger = null;
 	static {
 		
 		try {
-			initLogger.initialize();
+			InitLogger.initialize();
 		} catch (FileNotFoundException e) {
 			logger.log(Level.ERROR, "Can't initialize main's constructor due to loggers configuration file hasn't been found.");
 			e.printStackTrace();
@@ -30,7 +30,7 @@ private static Logger logger = null;
 			e.printStackTrace();
 		}
 		
-		logger = initLogger.logger[0];
+		logger = InitLogger.logger[0];
 	}
 	
 	

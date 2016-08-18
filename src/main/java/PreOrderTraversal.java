@@ -1,4 +1,4 @@
-class PreorderTraversal<T> implements Traversal<T>, initLogger{
+class PreorderTraversal<T> implements Traversal<T>, InitLogger{
 	
 	@Override
 	public final void traverseTree(Node<T> current) {

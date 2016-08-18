@@ -1,4 +1,4 @@
-public class Node<T> implements initLogger{//Char
+public class Node<T> implements InitLogger{//Char
 	private final T value;
 	private Node<T> leftChild;
 	private Node<T> rightChild;
