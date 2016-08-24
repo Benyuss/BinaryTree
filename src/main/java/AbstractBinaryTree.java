@@ -4,36 +4,38 @@ import java.io.IOException;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.core.Logger;
 
-public abstract class AbstractBinaryTree<T, N> implements BinaryTree<T>, InitLogger{//String,Char LZWBinary miatt.
+public abstract class AbstractBinaryTree<T, N> implements BinaryTree<T>, InitLogger {// String,Char
+																						// LZWBinary
+																						// miatt.
 	protected Node<N> root;
 
-//	@Override
-//	public int hashCode() {
-//		final int prime = 31;
-//		int result = 1;
-//		result = prime * result + ((root == null) ? 0 : root.hashCode());
-//		return result;
-//	}
+	// @Override
+	// public int hashCode() {
+	// final int prime = 31;
+	// int result = 1;
+	// result = prime * result + ((root == null) ? 0 : root.hashCode());
+	// return result;
+	// }
 
-private static Logger logger = null;
-	
-	
+	private static Logger logger = null;
+
 	static {
-		
+
 		try {
 			InitLogger.initialize();
 		} catch (FileNotFoundException e) {
-			logger.log(Level.ERROR, "Can't initialize main's constructor due to loggers configuration file hasn't been found.");
+			logger.log(Level.ERROR,
+					"Can't initialize main's constructor due to loggers configuration file hasn't been found.");
 			e.printStackTrace();
 		} catch (IOException e) {
-			logger.log(Level.ERROR, "Can't initialize main's constructor due to loggers configuration file hasn't been found.");
+			logger.log(Level.ERROR,
+					"Can't initialize main's constructor due to loggers configuration file hasn't been found.");
 			e.printStackTrace();
 		}
-		
+
 		logger = InitLogger.logger[0];
 	}
-	
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -54,6 +56,7 @@ private static Logger logger = null;
 	class DepthCalculator extends PreorderTraversal<N> {
 		int currentDepth = -1; // root node should not be counted
 		int maxDepth = 0;
+
 		@Override
 		public void preProcess() {
 			currentDepth++;
@@ -61,12 +64,13 @@ private static Logger logger = null;
 				maxDepth = currentDepth;
 			}
 		}
+
 		@Override
 		protected void postProcess() {
 			currentDepth--;
 		}
 	}
-	
+
 	@Override
 	public int depth() {
 		DepthCalculator dc = new DepthCalculator();
@@ -74,10 +78,11 @@ private static Logger logger = null;
 		logger.log(Level.DEBUG, "Tree is " + dc.maxDepth + " deep.");
 		return dc.maxDepth;
 	}
-	
+
 	class AverageDepthCalculator extends DepthCalculator {
 		double count = 0;
 		double sum = 0;
+
 		@Override
 		protected void processNode(Node<N> current) {
 			super.processNode(current);
@@ -87,7 +92,7 @@ private static Logger logger = null;
 			}
 		}
 	}
-	
+
 	@Override
 	public double averageDepth() {
 		AverageDepthCalculator adc = new AverageDepthCalculator();
@@ -96,13 +101,12 @@ private static Logger logger = null;
 		logger.log(Level.DEBUG, "Avarage depth is " + temp);
 		return temp;
 	}
-	
-	
+
 	class VarianceCalculator extends DepthCalculator {
 		double sumSqr = 0;
 		double count = 0;
 		double avg;
-		
+
 		public VarianceCalculator(double avg) {
 			this.avg = avg;
 		}
@@ -111,15 +115,15 @@ private static Logger logger = null;
 		protected void processNode(Node<N> current) {
 			super.processNode(current);
 			if (current != null) {
-			      if (current.getRightChild() == null && current.getLeftChild() == null) {
-			    	  count++;
-			    	  sumSqr += ((currentDepth - avg) * (currentDepth - avg));
-			      }
+				if (current.getRightChild() == null && current.getLeftChild() == null) {
+					count++;
+					sumSqr += ((currentDepth - avg) * (currentDepth - avg));
+				}
 			}
 		}
-		
+
 	}
-	
+
 	@Override
 	public double variance() {
 		double avg = averageDepth();
@@ -127,10 +131,10 @@ private static Logger logger = null;
 		var.traverseTree(root);
 		double variance;
 		if (var.count > 1)
-		    variance = Math.sqrt(var.sumSqr / (var.count - 1));
-		  else
-		    variance = Math.sqrt(var.sumSqr);
+			variance = Math.sqrt(var.sumSqr / (var.count - 1));
+		else
+			variance = Math.sqrt(var.sumSqr);
 		logger.log(Level.DEBUG, "Variance is " + variance);
 		return variance;
 	}
-}	
+}

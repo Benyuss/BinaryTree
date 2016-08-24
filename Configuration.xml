@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration status="trace" monitorInterval="60">
+<Configuration status="debug" monitorInterval="60">
 
 	<Appenders>
 		<Console name="STDOUT">
@@ -12,22 +12,17 @@
 <!-- 			</PatternLayout> -->
 <!-- 		</File> -->
 	</Appenders>
+	
 
+	
 	<Loggers>
-		<Logger name="com.mycompany.myproduct" level="debug"
-			additivity="true">
-			<ThreadContextMapFilter>
-				<KeyValuePair key="test" value="123" />
-			</ThreadContextMapFilter>
-			<AppenderRef ref="STDOUT" />
-		</Logger>
-
 		<!-- By default, all log messages of level "trace" or higher will be logged. 
 			Log messages are sent to the "file" appender and log messages of level "error" 
 			and higher will be sent to the "STDOUT" appender. -->
-		<Root level="trace">
+			
+		<Root level="debug">
 <!-- 			<AppenderRef ref="file" /> -->
-			<AppenderRef ref="STDOUT" level="trace" />
+			<AppenderRef ref="STDOUT" level="debug" />
 		</Root>
 	</Loggers>
 
