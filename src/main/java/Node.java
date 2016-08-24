@@ -1,12 +1,10 @@
-public class Node<T> implements InitLogger{//Char
+public class Node<T> {// Char
+	//every node SHOULD have a value(1 or 0), and 2 childs.
+	//that class is only a data structure + getters, setters
+	
 	private final T value;
 	private Node<T> leftChild;
 	private Node<T> rightChild;
-	private Node<T> parent;
-
-	public Node<T> getParent() {
-		return parent;
-	}
 
 	public Node(T value) {
 		this.value = value;
@@ -38,17 +36,7 @@ public class Node<T> implements InitLogger{//Char
 	}
 
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((leftChild == null) ? 0 : leftChild.hashCode());
-		result = prime * result + ((rightChild == null) ? 0 : rightChild.hashCode());
-		result = prime * result + ((value == null) ? 0 : value.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(Object obj) {  //support equality test
 		if (this == obj)
 			return true;
 		if (obj == null)

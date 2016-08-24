@@ -4,18 +4,9 @@ import java.io.IOException;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.core.Logger;
 
-public abstract class AbstractBinaryTree<T, N> implements BinaryTree<T>, InitLogger {// String,Char
-																						// LZWBinary
-																						// miatt.
+public abstract class AbstractBinaryTree<T, N> implements BinaryTree<T>{// String,Char
+	
 	protected Node<N> root;
-
-	// @Override
-	// public int hashCode() {
-	// final int prime = 31;
-	// int result = 1;
-	// result = prime * result + ((root == null) ? 0 : root.hashCode());
-	// return result;
-	// }
 
 	private static Logger logger = null;
 
@@ -37,7 +28,7 @@ public abstract class AbstractBinaryTree<T, N> implements BinaryTree<T>, InitLog
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(Object obj) {	//to know if the trees are the same or not.
 		if (this == obj)
 			return true;
 		if (obj == null)
@@ -53,7 +44,7 @@ public abstract class AbstractBinaryTree<T, N> implements BinaryTree<T>, InitLog
 		return true;
 	}
 
-	class DepthCalculator extends PreorderTraversal<N> {
+	class DepthCalculator extends TraversedTree<N> {
 		int currentDepth = -1; // root node should not be counted
 		int maxDepth = 0;
 

@@ -3,8 +3,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import org.apache.logging.log4j.core.Logger;
 import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.core.Logger;
 import org.apache.logging.log4j.core.LoggerContext;
 import org.apache.logging.log4j.core.appender.ConsoleAppender;
 import org.apache.logging.log4j.core.config.Configuration;
@@ -15,15 +15,14 @@ import org.apache.logging.log4j.core.config.xml.XmlConfigurationFactory;
 import org.apache.logging.log4j.core.layout.PatternLayout;
 
 interface InitLogger {
-	
+
 	final Logger logger[] = new Logger[1];
-	
+
 	static void initialize() throws FileNotFoundException, IOException {
-		
-		
+
 		ConfigurationFactory factory = XmlConfigurationFactory.getInstance();
-		//TODO try-catch?? 
-		ConfigurationSource configurationSource = new ConfigurationSource(new FileInputStream(new File("Configuration.xml")));
+		ConfigurationSource configurationSource = new ConfigurationSource(
+				new FileInputStream(new File("Configuration.xml")));
 		Configuration configuration = factory.getConfiguration(configurationSource);
 		ConsoleAppender appender = ConsoleAppender.createDefaultAppenderForLayout(PatternLayout.createDefaultLayout());
 		// Add console appender into configuration
