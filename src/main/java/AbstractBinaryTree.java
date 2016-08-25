@@ -77,6 +77,7 @@ public abstract class AbstractBinaryTree<T, N> implements BinaryTree<T>{// Strin
 		@Override
 		protected void processNode(Node<N> current) {
 			super.processNode(current);
+			logger.log(Level.DEBUG, current.getValue());
 			if (current.getLeftChild() == null && current.getRightChild() == null) {
 				count++;
 				sum += currentDepth;
