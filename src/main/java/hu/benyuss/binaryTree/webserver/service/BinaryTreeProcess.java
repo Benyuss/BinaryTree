@@ -18,7 +18,7 @@ public class BinaryTreeProcess {
         this.travWay = travWay;
     }
 
-    public Map<String, String> processTree(String bits) { //TODO
+    public Map<String, String> processTree(String bits) {
         Map<String, String> treeData = new HashMap<>();
         //we'll put every data into that map then pass the whole collection as one in the controller
         // instead of pass these datas one by one.
