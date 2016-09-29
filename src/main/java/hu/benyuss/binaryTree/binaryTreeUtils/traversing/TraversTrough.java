@@ -1,4 +1,4 @@
-package hu.benyuss.binaryTree.traversing;
+package hu.benyuss.binaryTree.binaryTreeUtils.traversing;
 
 import hu.benyuss.binaryTree.binaryTreeUtils.BinaryTreeNode;
 import org.apache.logging.log4j.LogManager;

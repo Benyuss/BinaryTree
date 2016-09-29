@@ -16,8 +16,7 @@ public class Application {
 
     public static void main(String[] args) throws Exception {
         // start Spring server.
-        SpringApplication.run(Application.class, args);
-        logger.debug("main");
+        SpringApplication.run(Application.class, args);//NOSONAR //SonarQube marks that line as a false-positive. "nosonar" blocks inspection for that line.
+        logger.debug("Server started properly");
     }
-
 }

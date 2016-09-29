@@ -1,8 +1,8 @@
 package hu.benyuss.binaryTree.webserver;
 
-import hu.benyuss.binaryTree.BinaryTreeExecute;
-import hu.benyuss.binaryTree.BinaryTreeProcess;
-import hu.benyuss.binaryTree.traversing.TraversConst;
+import hu.benyuss.binaryTree.webserver.service.BinaryTreeInit;
+import hu.benyuss.binaryTree.webserver.service.BinaryTreeProcess;
+import hu.benyuss.binaryTree.binaryTreeUtils.traversing.TraversConst;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 import org.springframework.stereotype.Controller;
@@ -22,7 +22,7 @@ public class GeneralController {
     private static final Logger logger = (Logger) LogManager.getLogger(GeneralController.class.getName());
 
     @GetMapping(value = "/index")
-    public String indexPage(ModelMap model) {
+    public String indexPage(ModelMap model) { //ModelMap is a holder which stores modelAttributes.
         return "index";
     }
 
@@ -33,14 +33,15 @@ public class GeneralController {
 
     @PostMapping(value = "/manual-input")
     public String manualInput(ModelMap model) {
-        model.put("command", new BinaryTreeExecute());
+        model.put("command", new BinaryTreeInit());
         return "manualinput";
     }
 
     @PostMapping(value = "/manual-input", params = "submit")
-    public String manualInput(@ModelAttribute("custom") BinaryTreeExecute binaryTree, HttpSession session) {
-
-        logger.info("Bits of that tree: " + binaryTree.getBits());
+    public String manualInput(@ModelAttribute("custom") BinaryTreeInit binaryTree, HttpSession session) {
+        //i've used session instead of another model pass, because model can only pass trough 2 controllers while
+        //session is more agile.
+        logger.info("Bits of the given tree: " + binaryTree.getBits());
         session.setAttribute("tree", binaryTree);
         return "index";
     }
@@ -53,7 +54,7 @@ public class GeneralController {
     @PostMapping(value = "/upload", params = "up")
     public String upload(@RequestParam("genomfile") MultipartFile file, HttpSession session) {
 
-        BinaryTreeExecute binaryTree = new BinaryTreeExecute();
+        BinaryTreeInit binaryTree = new BinaryTreeInit();
         binaryTree.fileInput('f', file);
 
         session.setAttribute("tree", binaryTree);
@@ -76,11 +77,12 @@ public class GeneralController {
 
     @PostMapping(value = "/draw-tree")
     public String process(HttpSession session, @ModelAttribute("travWay") TraversConst travWay, ModelMap model) {
-        BinaryTreeExecute tree = (BinaryTreeExecute) session.getAttribute("tree");
-        BinaryTreeProcess realTree = new BinaryTreeProcess();
-        realTree.setTravWay((travWay));
+        BinaryTreeInit processableTree = (BinaryTreeInit) session.getAttribute("tree");
+        BinaryTreeProcess processedTree = new BinaryTreeProcess();
+        processedTree.setTravWay((travWay));
+        logger.debug("User decided to traverse trough the tree in " + travWay + " way.");
 
-        model.addAllAttributes(realTree.makefun(tree.getBits()));
+        model.addAllAttributes(processedTree.processTree(processableTree.getBits()));
         return "draw";
     }
 

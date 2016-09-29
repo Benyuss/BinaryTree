@@ -1,22 +1,21 @@
 package hu.benyuss.binaryTree.implementation;
 
 import hu.benyuss.binaryTree.binaryTreeUtils.BinaryTreeNode;
-import hu.benyuss.binaryTree.traversing.TraversConst;
+import hu.benyuss.binaryTree.binaryTreeUtils.traversing.TraversConst;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
-public class LZWBinaryTree extends AbstractBinaryTree<String, Character, TraversConst> {
+public class TreeBuilder extends AbstractBinaryTree<String, Character, TraversConst> {
     // Builds a LZW tree. If current node has a child, currentNode will point
     // to that. If not, it will create one and jump back to root.
 
-    private static final Logger logger = (Logger) LogManager.getLogger(LZWBinaryTree.class.getName());
+    private static final Logger logger = (Logger) LogManager.getLogger(TreeBuilder.class.getName());
 
     private int depth;
     private double avg;
     private double var;
-    private int hash;
 
-    public LZWBinaryTree() {
+    public TreeBuilder() {
         root = new BinaryTreeNode<Character>('/');
     }
 
@@ -31,14 +30,14 @@ public class LZWBinaryTree extends AbstractBinaryTree<String, Character, Travers
         for (int i = 0; i < value.length(); i++) {
             int c = value.charAt(i);
             if ((c) == '1') {
-                nextNode = currentNode.getRightChild(); // if it's null, it will
-                // create a child.
+                nextNode = currentNode.getRightChild();
+                // if it's null, it will create a child.
                 if (nextNode == null) {
                     BinaryTreeNode<Character> newNode = new BinaryTreeNode<Character>('1');
+                    //new node should be one more deeper than it's parent
                     newNode.setDepth(currentNode.getDepth() + 1);
                     currentNode.setRightChild(newNode);
                     nextNode = root;
-                    logger.trace(currentNode.getRightChild());
                 }
             } else if ((c) == '0') {
                 nextNode = currentNode.getLeftChild();
@@ -47,12 +46,9 @@ public class LZWBinaryTree extends AbstractBinaryTree<String, Character, Travers
                     newNode.setDepth(currentNode.getDepth() + 1);
                     currentNode.setLeftChild(newNode);
                     nextNode = root;
-                    logger.trace(currentNode.getLeftChild());
                 }
             }
-            currentNode = nextNode; // if not, current will be set to that.
-            // recursion just started.
-//			logger.trace(currentNode); // if you want to follow the script.
+            currentNode = nextNode;
         }
     }
 
@@ -79,13 +75,4 @@ public class LZWBinaryTree extends AbstractBinaryTree<String, Character, Travers
     public void setVar(double var) {
         this.var = var;
     }
-
-    public int getHash() {
-        return hash;
-    }
-
-    public void setHash(int hash) {
-        this.hash = hash;
-    }
-
 }

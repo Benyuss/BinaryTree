@@ -2,7 +2,7 @@ package hu.benyuss.binaryTree.implementation;
 
 import hu.benyuss.binaryTree.binaryTreeUtils.BinaryTree;
 import hu.benyuss.binaryTree.binaryTreeUtils.BinaryTreeNode;
-import hu.benyuss.binaryTree.traversing.TraversTrough;
+import hu.benyuss.binaryTree.binaryTreeUtils.traversing.TraversTrough;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
@@ -16,30 +16,12 @@ public abstract class AbstractBinaryTree<T, N, M> implements BinaryTree<T, M> {
     protected BinaryTreeNode<N> root;
 
     @Override
-    public boolean equals(Object obj) {
-        // to know if the trees are the same or not.
-
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        @SuppressWarnings("rawtypes")
-        AbstractBinaryTree other = (AbstractBinaryTree) obj;
-        if (root == null) {
-            if (other.root != null)
-                return false;
-        } else if (!root.equals(other.root))
-            return false;
-        return true;
-    }
-
-    @Override
     public String[] depth(M trav) {
         DepthCalculator dc = new DepthCalculator();
         dc.traverseTree(root, trav);
         logger.info("Tree is " + dc.maxDepth + " deep.");
+
+        //We want to return with more data. 1 - The drawed tree, 2 - it's depth.
         String[] results = new String[2];
         results[0] = dc.getLogmsg();
         results[1] = Integer.toString(dc.maxDepth);
